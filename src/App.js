@@ -1,25 +1,30 @@
-import logo from './logo.svg';
 import './App.css';
+import { useEffect, useState } from 'react'
+import { createEmptyMatrix, solveSudoku } from './SolveSudoku';
+import CytoscapeComponent from 'react-cytoscapejs';
+import MakeSudokuGraph from './MakeSudokuGraph';
 
-function App() {
+
+
+export default function App() {
+
+  const [sudokuMat, setSudokuMat] = useState(createEmptyMatrix(9, 9));
+
+  useEffect(() => {
+    const solvedSudoku = createEmptyMatrix(9, 9);
+    solveSudoku(solvedSudoku);
+    setSudokuMat(solvedSudoku);
+  }, []);
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div>
+       
+        <MakeSudokuGraph mat={sudokuMat}/>
+      </div>
+    </>
   );
 }
 
-export default App;
+
